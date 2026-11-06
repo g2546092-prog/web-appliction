@@ -5,7 +5,40 @@ document.addEventListener("DOMContentLoaded", () => {
     // 1. お出かけプランのデータベース（データ構造）
     // ==========================================
     const plansData = [
-        {
+        // 0円プランの例（plansData配列の中に追加してください）
+    {
+        id: "plan-00-a",
+        title: "大きな公園でのんびりお散歩＆写真撮影",
+        mood: ["chill", "photo", "active"],
+        budget: "free", // ★0円
+        time: "short",
+        area: "nature",
+        who: ["solo", "friends", "date"],
+        cost: "0円",
+        duration: "約 30分",
+        steps: [
+            "近くの大きめの公園へ散歩に出かける",
+            "季節の花や風景をスマホで撮影",
+            "ベンチに座ってのんびり風にあたる"
+        ]
+    },
+    {
+        id: "plan-00-b",
+        title: "図書館で気になっていた本を読み耽る",
+        mood: ["chill"],
+        budget: "free", // ★0円
+        time: "short",
+        area: "indoor",
+        who: ["solo"],
+        cost: "0円",
+        duration: "約 30分（近場）",
+        steps: [
+            "近くの市立図書館や大学図書館へ行く",
+            "普段読まないジャンルの本や雑誌を何冊か手にとる",
+            "静かな閲覧スペースでゆったり読書タイム"
+        ]
+    },{
+            
             id: "plan-01",
             title: "レトロカフェで読書＆スイーツ",
             mood: ["chill", "photo", "delicious"],

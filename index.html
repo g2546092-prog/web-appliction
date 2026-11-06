@@ -55,7 +55,7 @@
         <!-- 2. お出かけ診断画面（質問フォーム）           -->
         <!-- ========================================== -->
         <section id="quiz-screen" class="screen">
-            <h2 class="section-title">✨ 今日の気分を教えてね</h2>
+            <h2 class="section-title">✨今日の気分を教えてね✨</h2>
             
             <form id="quiz-form">
                 <!-- 質問1：気分 -->
@@ -64,7 +64,7 @@
                     <div class="option-grid">
                         <label class="option-card">
                             <input type="radio" name="mood" value="chill" checked>
-                            <span class="option-content">🍵 まったり癒やされたい</span>
+                            <span class="option-content">☕ まったり癒やされたい</span>
                         </label>
                         <label class="option-card">
                             <input type="radio" name="mood" value="active">
@@ -86,16 +86,20 @@
                     <label class="question-label">2. 予算（1人あたり）</label>
                     <div class="option-grid">
                         <label class="option-card">
+                            <input type="radio" name="budget" value="free" checked>
+                            <span class="option-content">⭐ 0円（タダで楽しみたい！）</span>
+                        </label>
+                        <label class="option-card">
                             <input type="radio" name="budget" value="low" checked>
                             <span class="option-content">🪙 プチプラ（〜2,000円）</span>
                         </label>
                         <label class="option-card">
                             <input type="radio" name="budget" value="medium">
-                            <span class="option-content">💳 ふつう（〜5,000円）</span>
+                            <span class="option-content">💳 ふつう（〜4,000円）</span>
                         </label>
                         <label class="option-card">
                             <input type="radio" name="budget" value="high">
-                            <span class="option-content">💎 ちょっぴり贅沢（5,000円〜）</span>
+                            <span class="option-content">💎 ちょっぴり贅沢（4,000円〜）</span>
                         </label>
                     </div>
                 </div>
@@ -110,11 +114,11 @@
                         </label>
                         <label class="option-card">
                             <input type="radio" name="time" value="medium">
-                            <span class="option-content">電車でゆったり（〜1時間）</span>
+                            <span class="option-content">🚃電車でゆったり（〜1時間）</span>
                         </label>
                         <label class="option-card">
                             <input type="radio" name="time" value="long">
-                            <span class="option-content">🚗 ちょっとした旅気分（1時間〜）</span>
+                            <span class="option-content">✈️ ちょっとした旅行気分（1時間〜）</span>
                         </label>
                     </div>
                 </div>
@@ -129,7 +133,7 @@
                         </label>
                         <label class="option-card">
                             <input type="radio" name="area" value="city">
-                            <span class="option-content">🏙 街ナカ・ショッピング</span>
+                            <span class="option-content">🏢 街ナカ・ショッピング</span>
                         </label>
                         <label class="option-card">
                             <input type="radio" name="area" value="nature">
@@ -152,7 +156,7 @@
                         </label>
                         <label class="option-card">
                             <input type="radio" name="who" value="date">
-                            <span class="option-content">👩‍❤️‍👨 デートで</span>
+                            <span class="option-content"> 💑デートで</span>
                         </label>
                     </div>
                 </div>
@@ -171,52 +175,67 @@
 
 
         <!-- ========================================== -->
-        <!-- 3. 診断結果画面（チケット風デザイン）         -->
+        <!-- 3. 診断結果画面（映画チケット風デザイン）     -->
         <!-- ========================================== -->
         <section id="result-screen" class="screen">
             <h2 class="section-title">🎟 あなたへのおすすめチケット</h2>
             
-            <!-- チケット風カード構造 -->
-            <div class="ticket-card">
-                <!-- チケットの上部ヘッダー -->
-                <div class="ticket-header">
-                    <span class="ticket-tag" id="result-tag">SPECIAL TRIP</span>
-                    <span class="ticket-id">No. <span id="ticket-number">2026-001</span></span>
-                </div>
+            <!-- 映画チケット風カード構造 -->
+            <div class="cinema-ticket">
+                <!-- 上部のフィルム穴帯 -->
+                <div class="film-holes top"></div>
 
-                <!-- チケットのメインエリア -->
-                <div class="ticket-body">
-                    <!-- おすすめのお出かけ先タイトル -->
-                    <h3 id="result-title" class="result-title">レトロカフェで読書＆スイーツ</h3>
-                    
-                    <!-- 概要（予算・所要時間など） -->
-                    <div class="result-meta">
-                        <div class="meta-item">
-                            <span class="meta-label">目安予算:</span>
-                            <span id="result-budget" class="meta-value">約 1,500円〜</span>
+                <!-- チケットの中身エリア -->
+                <div class="ticket-inner">
+                    <!-- 左側の縦書きスタブ -->
+                    <div class="ticket-stub-left">
+                        <div class="vertical-text">ADMIT ONE</div>
+                    </div>
+
+                    <!-- 中央のメインコンテンツ -->
+                    <div class="ticket-main-content">
+                        <div class="ticket-brand-header">
+                            <span class="ticket-icon">🎬</span>
+                            <span class="ticket-brand-title">ODEKAKE TICKET</span>
                         </div>
-                        <div class="meta-item">
-                            <span class="meta-label">移動時間:</span>
-                            <span id="result-time" class="meta-value">電車で約30分</span>
+                        <div class="ticket-divider-line"></div>
+
+                        <h3 id="result-title" class="result-title">レトロカフェで読書＆スイーツ</h3>
+                        
+                        <div class="result-meta">
+                            <div class="meta-item">
+                                <span class="meta-label">BUDGET:</span>
+                                <span id="result-budget" class="meta-value">約 1,500円〜</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">TIME:</span>
+                                <span id="result-time" class="meta-value">電車で約30分</span>
+                            </div>
+                        </div>
+
+                        <div class="result-detail">
+                            <h4>💡 おすすめの過ごし方</h4>
+                            <ul id="result-steps" class="detail-list">
+                                <!-- JavaScriptで動的に追加されます -->
+                            </ul>
                         </div>
                     </div>
 
-                    <!-- おすすめの過ごし方 -->
-                    <div class="result-detail">
-                        <h4>💡 おすすめの過ごし方</h4>
-                        <ul id="result-steps" class="detail-list">
-                            <!-- JavaScriptで動的に追加されます -->
-                        </ul>
+                    <!-- 右側のバーコードスタブ -->
+                    <div class="ticket-stub-right">
+                        <div class="barcode-wrapper">
+                            <div class="barcode-lines">||||| ||| |||||| ||| ||||</div>
+                            <div class="barcode-num" id="ticket-number">0123456789111</div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- チケットの切り取り線風デザイン -->
-                <div class="ticket-stub-line"></div>
+                <!-- 左右の半円型切込み -->
+                <div class="notch notch-left"></div>
+                <div class="notch notch-right"></div>
 
-                <!-- チケットの下部（バーコード風＆アクション） -->
-                <div class="ticket-footer">
-                    <div class="barcode-dummy">||||| ||| |||||| ||| ||||</div>
-                </div>
+                <!-- 下部のフィルム穴帯 -->
+                <div class="film-holes bottom"></div>
             </div>
 
             <!-- 操作ボタンエリア -->
@@ -232,7 +251,6 @@
                 </button>
             </div>
         </section>
-
 
         <!-- ========================================== -->
         <!-- 4. お気に入り一覧画面                      -->

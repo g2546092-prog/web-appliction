@@ -5,16 +5,16 @@
 /* アプリ全体で使う色やフォントを定義 */
 :root {
     /* パステルカラー＆韓国風カラーパレット */
-    --bg-color: #FAF5EF;         /* やわらかいクリーム色（背景） */
-    --card-bg: #FFFFFF;          /* カードの白 */
-    --primary-color: #FFB7B2;    /* パステルピンク（メイン色） */
-    --primary-hover: #FFA49E;    /* ホバー時の濃いピンク */
-    --secondary-color: #E2F0CB;  /* パステルペールグリーン（サブ色） */
-    --accent-color: #B5EAD7;     /* パステルミント（アクセント） */
-    --yellow-color: #FFF5BA;     /* パステルイエロー */
-    --blue-color: #C5E3F6;       /* パステル水色 */
+    --bg-color: #48c8b5;         /* やわらかいクリーム色（背景） */
+    --card-bg: #f6f0f0;          /* カードの白 */
+    --primary-color: #82aceb;    /* パステルピンク（メイン色） */
+    --primary-hover: #403888;    /* ホバー時の濃いピンク */
+    --secondary-color: #f8f4f5;  /* パステルペールグリーン（サブ色） */
+    --accent-color: #ebeeef;     /* パステルミント（アクセント） */
+    --yellow-color: #f3f3c4;     /* パステルイエロー */
+    --blue-color: #f5c5cf;       /* パステル水色 */
     
-    --text-color: #555555;       /* やさしいダークグレー（文字色） */
+    --text-color: #1a1616;       /* やさしいダークグレー（文字色） */
     --text-light: #888888;      /* 薄いグレー（補助文字） */
     --border-color: #F0E6DF;    /* カードなどの枠線 */
     
@@ -41,8 +41,9 @@ body {
     align-items: center;
     min-height: 100vh;
     padding: 20px 15px;
-    background-image: radial-gradient(#E8DFD8 1px, transparent 1px);
-    background-size: 20px 20px; /* ドット柄ノート背景 */
+    background-image: radial-gradient(#fefdfd 1px, transparent 1px);
+    background-size: 30px 30px; /* ドット柄ノート背景 */background-color: var(--bg-color);
+  
 }
 
 /* ========================================== */
@@ -55,7 +56,7 @@ body {
     border-radius: var(--radius-main);
     box-shadow: var(--shadow-soft);
     padding: 25px 20px;
-    border: 3px solid #FFF;
+    border: 3px solid #c9e1da;
     position: relative;
     overflow: hidden;
 }
@@ -93,9 +94,9 @@ body {
 
 .app-title {
     font-size: 2.2rem;
-    color: #FF8B8B;
+    color: #eb8080;
     letter-spacing: 2px;
-    text-shadow: 2px 2px 0px #FFF3F3;
+    text-shadow: 2px 2px 0px #f7f2f2;
 }
 
 .app-subtitle {
@@ -152,12 +153,12 @@ body {
     font-weight: bold;
     cursor: pointer;
     transition: all 0.2s ease;
-    box-shadow: 0 4px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 0px rgba(44, 43, 43, 0.1);
 }
 
 .btn:active {
     transform: translateY(2px);
-    box-shadow: 0 2px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 0px rgba(112, 50, 50, 0.1);
 }
 
 .btn-primary {
@@ -171,7 +172,7 @@ body {
 
 .btn-secondary {
     background-color: var(--blue-color);
-    color: #4A6B82;
+    color: #824a52;
 }
 
 .btn-accent {
@@ -195,7 +196,7 @@ body {
     font-weight: bold;
     font-size: 1rem;
     margin-bottom: 10px;
-    color: #555;
+    color: #283535;
 }
 
 .option-grid {
@@ -212,7 +213,7 @@ body {
 .option-content {
     display: block;
     padding: 12px 16px;
-    background-color: #FBF9F6;
+    background-color: #f0f8f867;
     border: 2px solid var(--border-color);
     border-radius: var(--radius-small);
     font-size: 0.95rem;
@@ -222,148 +223,227 @@ body {
 
 /* 選択された時の見た目 */
 .option-card input[type="radio"]:checked + .option-content {
-    background-color: #FFF0F0;
-    border-color: var(--primary-color);
-    color: #E05D5D;
+    background-color: #93f6ec42;
+    border-color: #87a5a5;
+    color: hsl(210, 36%, 54%);
     font-weight: bold;
     transform: translateX(4px);
 }
 
+
 /* ========================================== */
-/* 5. 診断結果画面（旅行チケット風UI）        */
+/* 5. 診断結果画面（映画チケット風UI）        */
 /* ========================================== */
-.ticket-card {
-    background: #FFFFFF;
-    border: 2px solid #EFE4DC;
-    border-radius: 16px;
-    box-shadow: var(--shadow-soft);
-    margin-bottom: 25px;
+.cinema-ticket {
+    background: #F4EBE1; /* 画像のようなレトロなアイボリー色 */
+    border-radius: 6px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    margin: 20px 0 25px 0;
     position: relative;
     overflow: hidden;
+    color: #2C2C2C;
 }
 
-.ticket-header {
-    background: var(--primary-color);
-    color: #FFF;
-    padding: 10px 18px;
+/* 上下の黒いフィルム帯と四角い穴 */
+.film-holes {
+    height: 22px;
+    background-color: #222222;
+    background-image: radial-gradient(#F4EBE1 0%, #F4EBE1 100%);
+    /* 四角い穴をCSSパターンで作成 */
+    background: 
+        linear-gradient(90deg, #222222 4px, transparent 4px) 0 0 / 16px 100%,
+        linear-gradient(#F4EBE1, #F4EBE1) 6px 4px / 8px 14px repeat-x,
+        #222222;
+}
+
+/* チケット内部のレイアウト */
+.ticket-inner {
     display: flex;
-    justify-content: space-between;
+    padding: 15px 10px;
+    min-height: 220px;
+    position: relative;
+}
+
+/* 左側の縦書きテキスト領域 */
+.ticket-stub-left {
+    width: 35px;
+    border-right: 3px solid #222222;
+    display: flex;
     align-items: center;
+    justify-content: center;
+    padding-right: 5px;
+}
+
+.vertical-text {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
     font-weight: bold;
-}
-
-.ticket-tag {
-    font-size: 0.8rem;
-    background: rgba(255, 255, 255, 0.3);
-    padding: 2px 8px;
-    border-radius: 10px;
-}
-
-.ticket-id {
+    letter-spacing: 3px;
     font-size: 0.85rem;
-    letter-spacing: 1px;
+    color: #333;
 }
 
-.ticket-body {
-    padding: 20px;
+/* 中央のメインエリア */
+.ticket-main-content {
+    flex: 1;
+    padding: 0 12px;
+}
+
+.ticket-brand-header {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    color: #222;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.ticket-divider-line {
+    height: 2px;
+    background-color: #222;
+    margin: 6px auto 12px auto;
+    width: 90%;
 }
 
 .result-title {
-    font-size: 1.35rem;
-    color: #333;
-    margin-bottom: 15px;
+    font-size: 1.25rem;
+    color: #111;
     text-align: center;
+    margin-bottom: 12px;
+    font-weight: bold;
 }
 
 .result-meta {
     display: flex;
     justify-content: space-around;
-    background: #FDF9F3;
-    padding: 10px;
-    border-radius: 10px;
-    margin-bottom: 18px;
-}
-
-.meta-item {
-    font-size: 0.85rem;
+    border-top: 1px solid #C8BDAB;
+    border-bottom: 1px solid #C8BDAB;
+    padding: 6px 0;
+    margin-bottom: 12px;
+    font-size: 0.8rem;
 }
 
 .meta-label {
-    color: var(--text-light);
+    font-weight: bold;
+    color: #666;
     margin-right: 4px;
 }
 
 .meta-value {
     font-weight: bold;
-    color: #4A4A4A;
+    color: #222;
 }
 
 .result-detail h4 {
-    font-size: 0.95rem;
-    margin-bottom: 8px;
-    color: #666;
+    font-size: 0.85rem;
+    margin-bottom: 6px;
+    color: #444;
 }
 
 .detail-list {
     list-style: none;
-    padding-left: 5px;
+    padding-left: 0;
 }
 
 .detail-list li {
-    font-size: 0.9rem;
-    line-height: 1.6;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin-bottom: 4px;
+    padding-left: 14px;
     position: relative;
-    padding-left: 18px;
-    margin-bottom: 6px;
 }
 
 .detail-list li::before {
-    content: "•";
-    color: var(--primary-color);
-    font-size: 1.2rem;
+    content: "■";
+    font-size: 0.6rem;
+    color: #222;
     position: absolute;
     left: 0;
-    top: -2px;
+    top: 2px;
 }
 
-/* チケットの切り取り線と凹み表現 */
-.ticket-stub-line {
-    border-top: 2px dashed #E0D5CC;
+/* 右側のバーコード領域 */
+.ticket-stub-right {
+    width: 45px;
+    border-left: 3px solid #222222;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 5px;
+}
+
+.barcode-wrapper {
+    writing-mode: vertical-rl;
+    text-align: center;
+}
+
+.barcode-lines {
+    font-family: monospace;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    color: #111;
+    font-weight: bold;
+}
+
+.barcode-num {
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+    margin-left: 4px;
+    color: #444;
+}
+
+
+/* ========================================== */
+/* 5. 診断結果画面（映画チケット風UI・ギザギザ端） */
+/* ========================================== */
+.cinema-ticket {
+    background: #f6e2cbd0; /* レトロなアイボリー色 */
+    border-radius: 6px;
+    box-shadow: 0 10px 25px rgba(122, 103, 77, 0.457);
+    margin: 20px 0 25px 0;
     position: relative;
-    margin: 10px 0;
+    overflow: hidden;
+    color: #0d0e0d;
 }
 
-.ticket-stub-line::before,
-.ticket-stub-line::after {
+/* チケット内部のレイアウト */
+.ticket-inner {
+    display: flex;
+    padding: 15px 18px; /* 左右の余白を少し調整 */
+    min-height: 220px;
+    position: relative;
+}
+
+/* 左右のギザギザ（白の連続した半円）を作るスタイル */
+.cinema-ticket::before,
+.cinema-ticket::after {
     content: "";
     position: absolute;
-    top: -10px;
-    width: 20px;
-    height: 20px;
-    background-color: var(--card-bg);
-    border-radius: 50%;
+    top: 22px; /* フィルム黒帯の下から開始 */
+    bottom: 22px; /* フィルム黒帯の上で終了 */
+    width: 16px;
+    z-index: 3;
+    /* 背景色（ノートの白）と同じ色の丸を縦に並べる設定 */
+    background-image: radial-gradient(circle, var(--card-bg) 60%, transparent 65%);
+    background-size: 18px 20px; /* 丸のサイズと縦の間隔 */
+    background-repeat: repeat-y;
 }
 
-.ticket-stub-line::before {
-    left: -12px;
+/* 左端のギザギザ */
+.cinema-ticket::before {
+    left: -9px;
 }
 
-.ticket-stub-line::after {
-    right: -12px;
+/* 右端のギザギザ */
+.cinema-ticket::after {
+    right: -9px;
 }
 
-.ticket-footer {
-    padding: 12px;
-    text-align: center;
-    background: #FAF8F5;
-}
 
-.barcode-dummy {
-    font-family: monospace;
-    letter-spacing: 4px;
-    color: #888;
-    font-size: 1.1rem;
-}
 
 /* ========================================== */
 /* 6. お気に入り画面                          */
