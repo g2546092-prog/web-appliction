@@ -1,0 +1,419 @@
+/* ========================================== */
+/* 1. 基本設定と共通変数                     */
+/* ========================================== */
+
+/* アプリ全体で使う色やフォントを定義 */
+:root {
+    /* パステルカラー＆韓国風カラーパレット */
+    --bg-color: #FAF5EF;         /* やわらかいクリーム色（背景） */
+    --card-bg: #FFFFFF;          /* カードの白 */
+    --primary-color: #FFB7B2;    /* パステルピンク（メイン色） */
+    --primary-hover: #FFA49E;    /* ホバー時の濃いピンク */
+    --secondary-color: #E2F0CB;  /* パステルペールグリーン（サブ色） */
+    --accent-color: #B5EAD7;     /* パステルミント（アクセント） */
+    --yellow-color: #FFF5BA;     /* パステルイエロー */
+    --blue-color: #C5E3F6;       /* パステル水色 */
+    
+    --text-color: #555555;       /* やさしいダークグレー（文字色） */
+    --text-light: #888888;      /* 薄いグレー（補助文字） */
+    --border-color: #F0E6DF;    /* カードなどの枠線 */
+    
+    /* 丸みと影の設定（ステッカー・シール風） */
+    --radius-main: 20px;
+    --radius-small: 12px;
+    --shadow-soft: 0 8px 20px rgba(220, 190, 180, 0.2);
+    --shadow-sticker: 0 4px 0px rgba(0, 0, 0, 0.08);
+}
+
+/* 全体のスタイル初期化 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Zen Maru Gothic', sans-serif, system-ui;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px 15px;
+    background-image: radial-gradient(#E8DFD8 1px, transparent 1px);
+    background-size: 20px 20px; /* ドット柄ノート背景 */
+}
+
+/* ========================================== */
+/* 2. ノート型メインコンテナ                  */
+/* ========================================== */
+.notebook-container {
+    width: 100%;
+    max-width: 480px; /* スマホで見やすい幅固定 */
+    background: var(--card-bg);
+    border-radius: var(--radius-main);
+    box-shadow: var(--shadow-soft);
+    padding: 25px 20px;
+    border: 3px solid #FFF;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 画面切り替えの制御 */
+.screen {
+    display: none; /* 基本は非表示 */
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.screen.active {
+    display: block; /* activeクラスがついた画面だけ表示 */
+    opacity: 1;
+}
+
+/* タイトル・ヘッダー装飾 */
+.home-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.sticker-badge {
+    display: inline-block;
+    background: var(--yellow-color);
+    color: var(--text-color);
+    font-weight: bold;
+    font-size: 0.85rem;
+    padding: 4px 12px;
+    border-radius: 20px;
+    box-shadow: var(--shadow-sticker);
+    transform: rotate(-2deg);
+    margin-bottom: 10px;
+}
+
+.app-title {
+    font-size: 2.2rem;
+    color: #FF8B8B;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 0px #FFF3F3;
+}
+
+.app-subtitle {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-top: 4px;
+}
+
+.section-title {
+    font-size: 1.3rem;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #4A4A4A;
+    position: relative;
+}
+
+.intro-card {
+    background-color: #FAF6F0;
+    border-radius: var(--radius-small);
+    padding: 18px;
+    margin-bottom: 25px;
+    border: 2px dashed #E5D9CE;
+    text-align: center;
+}
+
+.intro-text {
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+/* ========================================== */
+/* 3. ボタンデザイン（ステッカー風）          */
+/* ========================================== */
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+.margin-top {
+    margin-top: 20px;
+}
+
+.btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 0px rgba(0, 0, 0, 0.1);
+}
+
+.btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: #FFFFFF;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+}
+
+.btn-secondary {
+    background-color: var(--blue-color);
+    color: #4A6B82;
+}
+
+.btn-accent {
+    background-color: var(--yellow-color);
+    color: #6B5B00;
+}
+
+.btn-icon {
+    margin-right: 8px;
+}
+
+/* ========================================== */
+/* 4. 診断フォーム（ラジオボタンカード）       */
+/* ========================================== */
+.question-card {
+    margin-bottom: 22px;
+}
+
+.question-label {
+    display: block;
+    font-weight: bold;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.option-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* ラジオボタンを非表示にし、カード全体をボタンのように見せる */
+.option-card input[type="radio"] {
+    display: none;
+}
+
+.option-content {
+    display: block;
+    padding: 12px 16px;
+    background-color: #FBF9F6;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-small);
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+/* 選択された時の見た目 */
+.option-card input[type="radio"]:checked + .option-content {
+    background-color: #FFF0F0;
+    border-color: var(--primary-color);
+    color: #E05D5D;
+    font-weight: bold;
+    transform: translateX(4px);
+}
+
+/* ========================================== */
+/* 5. 診断結果画面（旅行チケット風UI）        */
+/* ========================================== */
+.ticket-card {
+    background: #FFFFFF;
+    border: 2px solid #EFE4DC;
+    border-radius: 16px;
+    box-shadow: var(--shadow-soft);
+    margin-bottom: 25px;
+    position: relative;
+    overflow: hidden;
+}
+
+.ticket-header {
+    background: var(--primary-color);
+    color: #FFF;
+    padding: 10px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+}
+
+.ticket-tag {
+    font-size: 0.8rem;
+    background: rgba(255, 255, 255, 0.3);
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+
+.ticket-id {
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+}
+
+.ticket-body {
+    padding: 20px;
+}
+
+.result-title {
+    font-size: 1.35rem;
+    color: #333;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.result-meta {
+    display: flex;
+    justify-content: space-around;
+    background: #FDF9F3;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 18px;
+}
+
+.meta-item {
+    font-size: 0.85rem;
+}
+
+.meta-label {
+    color: var(--text-light);
+    margin-right: 4px;
+}
+
+.meta-value {
+    font-weight: bold;
+    color: #4A4A4A;
+}
+
+.result-detail h4 {
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+    color: #666;
+}
+
+.detail-list {
+    list-style: none;
+    padding-left: 5px;
+}
+
+.detail-list li {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    position: relative;
+    padding-left: 18px;
+    margin-bottom: 6px;
+}
+
+.detail-list li::before {
+    content: "•";
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    position: absolute;
+    left: 0;
+    top: -2px;
+}
+
+/* チケットの切り取り線と凹み表現 */
+.ticket-stub-line {
+    border-top: 2px dashed #E0D5CC;
+    position: relative;
+    margin: 10px 0;
+}
+
+.ticket-stub-line::before,
+.ticket-stub-line::after {
+    content: "";
+    position: absolute;
+    top: -10px;
+    width: 20px;
+    height: 20px;
+    background-color: var(--card-bg);
+    border-radius: 50%;
+}
+
+.ticket-stub-line::before {
+    left: -12px;
+}
+
+.ticket-stub-line::after {
+    right: -12px;
+}
+
+.ticket-footer {
+    padding: 12px;
+    text-align: center;
+    background: #FAF8F5;
+}
+
+.barcode-dummy {
+    font-family: monospace;
+    letter-spacing: 4px;
+    color: #888;
+    font-size: 1.1rem;
+}
+
+/* ========================================== */
+/* 6. お気に入り画面                          */
+/* ========================================== */
+.favorites-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-height: 380px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.fav-card {
+    background: #FFF9F5;
+    border: 2px dashed #E5D5C8;
+    border-radius: var(--radius-small);
+    padding: 15px;
+    position: relative;
+}
+
+.fav-title {
+    font-size: 1.05rem;
+    font-weight: bold;
+    color: #4A4A4A;
+    margin-bottom: 6px;
+}
+
+.fav-meta {
+    font-size: 0.8rem;
+    color: var(--text-light);
+}
+
+.delete-fav-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #FFD1D1;
+    color: #D32F2F;
+    border: none;
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+.empty-message {
+    text-align: center;
+    padding: 40px 10px;
+    color: var(--text-light);
+    font-size: 0.95rem;
+}

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <!-- 文字コードの設定（日本語が文字化けしないように指定） -->
+    <meta charset="UTF-8">
+    <!-- スマホで見やすくするためのレスポンシブデザイン用設定 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>お出かけ診断 - Odekake Plan</title>
+    <!-- Google Fontsの読み込み（かわいらしい丸ゴシック系フォント） -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700&display=swap" rel="stylesheet">
+    <!-- CSSファイルの読み込み -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- アプリ全体のコンテナ（旅行ノート風のカード） -->
+    <div class="notebook-container">
+
+        <!-- ========================================== -->
+        <!-- 1. ホーム画面                              -->
+        <!-- ========================================== -->
+        <!-- 「active」クラスがついている画面だけが表示されます -->
+        <section id="home-screen" class="screen active">
+            <!-- ヘッダー・ロゴ領域 -->
+            <header class="home-header">
+                <div class="sticker-badge">✨ 今日の予定が決まる！</div>
+                <h1 class="app-title">お出かけ診断</h1>
+                <p class="app-subtitle">〜 Weekend Travel Note 〜</p>
+            </header>
+
+            <!-- アプリの簡単な説明カード -->
+            <div class="intro-card">
+                <p class="intro-text">
+                    「休みなのにどこに行くか決まってない…」<br>
+                    そんな日は、今の気分や予算を選ぶだけ！<br>
+                    あなたにぴったりの休日プランをランダムにお届けします🎫
+                </p>
+            </div>
+
+            <!-- 操作ボタンエリア -->
+            <div class="button-group">
+                <button id="start-btn" class="btn btn-primary">
+                    <span class="btn-icon">✈️</span> お出かけ診断スタート
+                </button>
+                <button id="view-favorites-btn" class="btn btn-secondary">
+                    <span class="btn-icon">💖</span> お気に入り一覧をみる
+                </button>
+            </div>
+        </section>
+
+
+        <!-- ========================================== -->
+        <!-- 2. お出かけ診断画面（質問フォーム）           -->
+        <!-- ========================================== -->
+        <section id="quiz-screen" class="screen">
+            <h2 class="section-title">✨ 今日の気分を教えてね</h2>
+            
+            <form id="quiz-form">
+                <!-- 質問1：気分 -->
+                <div class="question-card">
+                    <label class="question-label">1. 今日の気分は？</label>
+                    <div class="option-grid">
+                        <label class="option-card">
+                            <input type="radio" name="mood" value="chill" checked>
+                            <span class="option-content">🍵 まったり癒やされたい</span>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="mood" value="active">
+                            <span class="option-content">🏃‍♂️ アクティブに動きたい</span>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="mood" value="photo">
+                            <span class="option-content">📸 インスタ映え・おしゃれ</span>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="mood" value="delicious">
+                            <span class="option-content">🍰 美味しいものを食べたい</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 質問2：予算 -->
+                <div class="question-card">
+                    <label class="question-label">2. 予算（1人あたり）</label>
+                    <div class="option-grid">
+                        <label class="option-card">
+                            <input type="radio" name="budget" value="low" checked>
+                            <span class="option-content">🪙 プチプラ（〜2,000円）</span>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="budget" value="medium">
+                            <span class="option-content">💳 ふつう（〜5,000円）</span>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="budget" value="high">
+                            <span class="option-content">💎 ちょっぴり贅沢（5,000円〜）</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 質問3：移動時間 -->
+                <div class="question-card">
+                    <label class="question-label">3. 移動時間はどのくらい？</label>
+                    <div class="option-grid">
+                        <label class="option-card">
+                            <input type="radio" name="time" value="short" checked>
+                            <span class="option-content">🚶‍♀️ サクッと（〜30分）</span>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="time" value="medium">
+                            <span class="option-content">電車でゆったり（〜1時間）</span>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="time" value="long">
+                            <span class="option-content">🚗 ちょっとした旅気分（1時間〜）</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 質問4：エリア -->
+                <div class="question-card">
+                    <label class="question-label">4. 行きたいエリアの雰囲気</label>
+                    <div class="option-grid">
+                        <label class="option-card">
+                            <input type="radio" name="area" value="indoor" checked>
+                            <span class="option-content">🏠 室内・快適な場所</span>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="area" value="city">
+                            <span class="option-content">🏙 街ナカ・ショッピング</span>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="area" value="nature">
+                            <span class="option-content">🌳 自然・公園・のんびり</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 質問5：誰と行くか -->
+                <div class="question-card">
+                    <label class="question-label">5. 誰と行く？</label>
+                    <div class="option-grid">
+                        <label class="option-card">
+                            <input type="radio" name="who" value="solo" checked>
+                            <span class="option-content">🎧 ひとりでのんびり</span>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="who" value="friends">
+                            <span class="option-content">👭 友達とにぎやかに</span>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="who" value="date">
+                            <span class="option-content">👩‍❤️‍👨 デートで</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 診断実行ボタン -->
+                <div class="button-group">
+                    <button type="submit" class="btn btn-primary">
+                        <span class="btn-icon">🔮</span> 診断結果を見る！
+                    </button>
+                    <button type="button" id="back-to-home-from-quiz" class="btn btn-secondary">
+                        戻る
+                    </button>
+                </div>
+            </form>
+        </section>
+
+
+        <!-- ========================================== -->
+        <!-- 3. 診断結果画面（チケット風デザイン）         -->
+        <!-- ========================================== -->
+        <section id="result-screen" class="screen">
+            <h2 class="section-title">🎟 あなたへのおすすめチケット</h2>
+            
+            <!-- チケット風カード構造 -->
+            <div class="ticket-card">
+                <!-- チケットの上部ヘッダー -->
+                <div class="ticket-header">
+                    <span class="ticket-tag" id="result-tag">SPECIAL TRIP</span>
+                    <span class="ticket-id">No. <span id="ticket-number">2026-001</span></span>
+                </div>
+
+                <!-- チケットのメインエリア -->
+                <div class="ticket-body">
+                    <!-- おすすめのお出かけ先タイトル -->
+                    <h3 id="result-title" class="result-title">レトロカフェで読書＆スイーツ</h3>
+                    
+                    <!-- 概要（予算・所要時間など） -->
+                    <div class="result-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">目安予算:</span>
+                            <span id="result-budget" class="meta-value">約 1,500円〜</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">移動時間:</span>
+                            <span id="result-time" class="meta-value">電車で約30分</span>
+                        </div>
+                    </div>
+
+                    <!-- おすすめの過ごし方 -->
+                    <div class="result-detail">
+                        <h4>💡 おすすめの過ごし方</h4>
+                        <ul id="result-steps" class="detail-list">
+                            <!-- JavaScriptで動的に追加されます -->
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- チケットの切り取り線風デザイン -->
+                <div class="ticket-stub-line"></div>
+
+                <!-- チケットの下部（バーコード風＆アクション） -->
+                <div class="ticket-footer">
+                    <div class="barcode-dummy">||||| ||| |||||| ||| ||||</div>
+                </div>
+            </div>
+
+            <!-- 操作ボタンエリア -->
+            <div class="button-group">
+                <button id="add-favorite-btn" class="btn btn-accent">
+                    <span class="btn-icon">💖</span> お気に入りに追加
+                </button>
+                <button id="retry-btn" class="btn btn-primary">
+                    <span class="btn-icon">🔄</span> もう一度診断する
+                </button>
+                <button id="home-from-result-btn" class="btn btn-secondary">
+                    ホームへ戻る
+                </button>
+            </div>
+        </section>
+
+
+        <!-- ========================================== -->
+        <!-- 4. お気に入り一覧画面                      -->
+        <!-- ========================================== -->
+        <section id="favorites-screen" class="screen">
+            <h2 class="section-title">💖 保存したお出かけチケット</h2>
+
+            <!-- お気に入りカードの一覧表示エリア -->
+            <div id="favorites-list" class="favorites-grid">
+                <!-- JavaScriptでここに保存したお出かけ先が追加されます -->
+            </div>
+
+            <!-- 保存データがない場合の表示メッセージ -->
+            <div id="empty-favorites-msg" class="empty-message">
+                <p>まだお気に入り登録されたプランがありません💭</p>
+            </div>
+
+            <div class="button-group margin-top">
+                <button id="back-to-home-from-fav" class="btn btn-secondary">
+                    ホームへ戻る
+                </button>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- JavaScriptファイルの読み込み -->
+    <script src="script.js"></script>
+</body>
+</html>
