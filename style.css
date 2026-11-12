@@ -41,9 +41,8 @@ body {
     align-items: center;
     min-height: 100vh;
     padding: 20px 15px;
-    background-image: radial-gradient(#fefdfd 1px, transparent 1px);
-    background-size: 30px 30px; /* ドット柄ノート背景 */background-color: var(--bg-color);
-  
+    background-image: radial-gradient(#E8DFD8 1.5px, transparent 1.5px);
+    background-size: 24px 24px; /* ドット柄ノート背景 */
 }
 
 /* ========================================== */
@@ -443,6 +442,45 @@ body {
     right: -9px;
 }
 
+/* アコーディオンボタン */
+.accordion-toggle {
+    width: 100%;
+    background: none;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: #444;
+    cursor: pointer;
+    padding: 6px 0;
+    border-top: 1px dashed #C8BDAB;
+}
+
+.accordion-icon {
+    font-size: 1rem;
+    transition: transform 0.3s ease;
+}
+
+/* 開閉する中身 */
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out, opacity 0.3s ease;
+    opacity: 0;
+}
+
+/* アコーディオンが開いた状態 */
+.result-detail.open .accordion-content {
+    max-height: 300px; /* 十分な高さを指定 */
+    opacity: 1;
+    margin-top: 8px;
+}
+
+.result-detail.open .accordion-icon {
+    transform: rotate(45deg); /* ＋が✕に変化 */
+}
 
 
 /* ========================================== */
@@ -496,4 +534,39 @@ body {
     padding: 40px 10px;
     color: var(--text-light);
     font-size: 0.95rem;
+}
+/* ========================================== */
+/* 7. アニメーション演出                       */
+/* ========================================== */
+
+/* アニメーション部分の修正（透過設定をマイルドに変更） */
+#result-screen.active .cinema-ticket {
+    animation: ticketPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes ticketPop {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 子要素のアニメーションが原因で消えるのを防ぐため、一旦 display/opacity の過度な指定を外す */
+#result-screen.active .ticket-main-content > * {
+    animation: fadeInUp 0.4s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

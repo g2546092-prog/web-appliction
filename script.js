@@ -7,36 +7,51 @@ document.addEventListener("DOMContentLoaded", () => {
     const plansData = [
         // 0円プランの例（plansData配列の中に追加してください）
         {
-        id: "plan-free-01",
-        title: "のんびりお散歩や公園＆写真撮影",
-        mood: ["chill", "photo", "active"],
-        budget: "free", // ★0円
-        time: "short",
-        area: "nature",
-        who: ["solo", "friends", "date"],
-        cost: "0円",
-        duration: "約 1~2時間",
-        steps: [
-            "行ったことのない場所や公園をのんびり歩く",
-            "季節の花や風景をスマホで撮影",
-            "ベンチに座って音楽を聴く"
-        ]
+            id: "plan-free-00",
+            title: "映画鑑賞",
+            mood: ["chill"],
+            budget: "free", // ★0円
+            time: "long",
+            area: "indoor",
+            who: ["solo", "date"],
+            cost: "0円",
+            duration: "約 1—2時間",
+            steps: [
+            "見たい映画を1つ選ぶ",
+            "家にあるお菓子と飲み物を用意する",
+             ]
         },
         {
-        id: "plan-free-02",
-        title: "図書館で本を読む",
-        mood: ["chill"],
-        budget: "free", // ★0円
-        time: "short",
-        area: "indoor",
-        who: ["solo"],
-        cost: "0円",
-        duration: "約 30分（近場）",
-        steps: [
+            id: "plan-free-01",
+            title: "100個やりたいことリスト",
+            mood: ["chill"],
+            budget: "free", // ★0円
+            time: "short",
+            area: "indoor",
+            who: ["solo", "date"],
+            cost: "0円",
+            duration: "約 30分",
+            steps: [
+            "紙に自分のやりたいことを書き留める",
+            "優先順位をつける",
+            "シールなどでデコる"
+             ]
+        },
+        {
+            id: "plan-free-02",
+            title: "図書館で本を読む",
+            mood: ["chill"],
+            budget: "free", // ★0円
+            time: "short",
+            area: "indoor",
+            who: ["solo"],
+            cost: "0円",
+            duration: "約 30分（近場）",
+            steps: [
             "近くの市立図書館や大学図書館へ行く",
             "普段読まないジャンルの本や雑誌を何冊か手にとる",
             "静かな閲覧スペースでゆったり読書タイム"
-          ]
+              ]
         },
         {
             id: "plan-free-03",
@@ -72,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
         },
         {
             id: "plan-free-05",
-            title: "自然豊かな川辺や海岸沿いをサイクリング＆お散歩",
+            title: "自然豊かな川辺や海岸沿いをサイクリング",
             mood: ["active", "chill"],
             budget: "free",
             time: "long",
@@ -99,25 +114,40 @@ document.addEventListener("DOMContentLoaded", () => {
             steps: [
                 "入場無料のギャラリーや企業のPR館、文化施設をリサーチ",
                 "静かな館内でアートや歴史の展示を鑑賞",
-                "パンフレットを持ち帰って旅行ノートに貼る"
+                "気に入ったアートや展示品の写真を撮る"
             ]
         },
         {
             id: "plan-free-07",
-            title: "お絵描き＆写真撮影",
-            mood: ["chill", "photo", ],
+            title: "公園でお絵描き＆写真撮影",
+            mood: ["chill", "photo", "active" ],
             budget: "free", // ★0円
-            time: "long",
+            time: "short",
             area: "nature",
             who: [ "friends", "date"],
             cost: "0円",
-            duration: "約 1~2時間",
+            duration: "約30分",
             steps: [
                  "公園などに行って描く場所、絵を探す",
                  "花や風景、似顔絵など1つ決めて描き、交換する",
                  "絵と一緒にスマホで撮影",
             ]
-        }    
+        },
+        {
+            id: "plan-free-08",
+            title: "お菓子作り",
+            mood: ["delicious"],
+            budget: "free", // ★0円
+            time: "medium",
+            area: "indoor",
+            who: ["solo"],
+            cost: "0円",
+            duration: "約1時間",
+            steps: [
+                 "家にある材料で作れそうな簡単なレシピを検索する",
+                 "レシピを見ながら実際に作ってみる",
+            ]
+        }   
         ,{
             
             id: "plan-2000-01",
@@ -169,23 +199,54 @@ document.addEventListener("DOMContentLoaded", () => {
         },
         {
             id: "plan-4000-02",
+            title: "映画鑑賞",
+            mood: ["chill", "photo"],
+            budget: "medium",
+            time: "long",
+            area: "indoor",
+            who: ["solo", "date","friends"],
+            cost: "約 2,000円〜3,000円",
+            duration: "約 2-3時間",
+            steps: [
+                "映画観に行き一つ映画を選ぶ",
+                "時間があれば、ポップコーンや飲み物を買う"
+            ]
+        },
+        {
+            id: "plan-4000-03",
             title: "大型ショッピングモールで食べ歩き＆買い出し",
             mood: ["active", "delicious"],
             budget: "medium",
             time: "short",
             area: "city",
-            who: ["friends", "date", "solo"],
+            who: ["friends", "date"],
             cost: "約 3,000円〜4,000円",
             duration: "約 30分",
             steps: [
-                "気になるショップをウィンドウショッピング",
-                "フードコートやカフェで限定スイーツを堪能",
+                "気になるお店を入る",
+                "フードコートやカフェでスイーツを堪能",
                 "雑貨屋さんでお部屋のインテリアを探す"
             ]
         },
         {
+            id: "plan-4000-04",
+            title: "水族館プラン",
+            mood: ["active", "photo"],
+            budget: "medium",
+            time: "long",
+            area: "city",
+            who: ["friends", "date"],
+            cost: "約 3,000円〜4,000円",
+            duration: "約 1-2時間",
+            steps: [
+                "水族館へ向かい大水槽やクラゲコーナーで癒やされる",
+                "迫力満点のイルカショーやペンギンの時間を鑑賞",
+                "ミュージアムショップで可愛い海の生き物グッズをみる"
+            ]
+        },
+        {
             id: "plan-4000-01",
-            title: "日帰り温泉・スパリゾートで極上リフレッシュ",
+            title: "日帰り温泉・スパリゾートでリフレッシュ",
             mood: ["chill", "delicious"],
             budget: "high",
             time: "long",
@@ -201,7 +262,7 @@ document.addEventListener("DOMContentLoaded", () => {
         },
         {
             id: "plan-4000-02",
-            title: "海辺のドライブ＆絶景カフェめぐり",
+            title: "海辺のドライブ＆カフェめぐり",
             mood: ["active", "photo", "chill"],
             budget: "high",
             time: "long",
@@ -258,7 +319,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ==========================================
-    // 4. 診断ロジック
+    // 4. 診断ロジック（予算は絶対に固定）
     // ==========================================
     function runDiagnosis(event) {
         event.preventDefault();
@@ -266,48 +327,93 @@ document.addEventListener("DOMContentLoaded", () => {
         const formData = new FormData(quizForm);
         const userAnswers = {
             mood: formData.get("mood"),
-            budget: formData.get("budget"),
+            budget: formData.get("budget"), // ユーザーが選んだ予算 (free, low, medium, high)
             time: formData.get("time"),
             area: formData.get("area"),
             who: formData.get("who")
         };
 
-        let matchedPlans = plansData.filter(plan => {
+        // STEP 1: 【絶対条件】まず「選択された予算」に一致するプランだけに絞り込む
+        const budgetOnlyPlans = plansData.filter(plan => plan.budget === userAnswers.budget);
+
+        // 万が一、選んだ予算のプランがデータ（plansData）に1つもない場合の安全対策
+        if (budgetOnlyPlans.length === 0) {
+            alert("該当する予算のプランが登録されていません。");
+            return;
+        }
+
+        // STEP 2: 予算が一致するプランの中から「その他の条件（気分・時間・エリア・誰と）」が合うものを探す
+        let matchedPlans = budgetOnlyPlans.filter(plan => {
             return plan.mood.includes(userAnswers.mood) &&
                    plan.who.includes(userAnswers.who) &&
-                   plan.budget === userAnswers.budget &&
                    plan.time === userAnswers.time &&
                    plan.area === userAnswers.area;
         });
 
+        // STEP 3: 気分や時間が全て合うものが無かった場合は「予算だけが合うグループ（budgetOnlyPlans）」からランダム選出
+        // （※これにより、他の条件が合わなくても「別の予算」のプランが選ばれる事故を100%防ぎます）
         if (matchedPlans.length === 0) {
-            matchedPlans = plansData;
+            matchedPlans = budgetOnlyPlans;
         }
 
+        // 候補の中からランダムに1つ選ぶ
         const randomIndex = Math.floor(Math.random() * matchedPlans.length);
         currentSelectedPlan = matchedPlans[randomIndex];
 
         renderResultCard(currentSelectedPlan);
         showScreen(resultScreen);
     }
-
+    // ★★★ この関数を追加してください ★★★
     function renderResultCard(plan) {
         if (!plan) return;
-        resultTitle.textContent = plan.title;
-        resultBudget.textContent = plan.cost;
-        resultTime.textContent = plan.duration;
+        if (resultTitle) resultTitle.textContent = plan.title;
+        if (resultBudget) resultBudget.textContent = plan.cost;
+        if (resultTime) resultTime.textContent = plan.duration;
 
         const randomNum = Math.floor(100 + Math.random() * 900);
-        ticketNumber.textContent = `2026-${randomNum}`;
+        if (ticketNumber) ticketNumber.textContent = `2026-${randomNum}`;
 
-        resultSteps.innerHTML = "";
-        plan.steps.forEach(stepText => {
-            const li = document.createElement("li");
-            li.textContent = stepText;
-            resultSteps.appendChild(li);
+        if (resultSteps) {
+            resultSteps.innerHTML = "";
+            plan.steps.forEach(stepText => {
+                const li = document.createElement("li");
+                li.textContent = stepText;
+                resultSteps.appendChild(li);
+            });
+        }
+    }
+    // アコーディオン開閉処理
+    const ticketAccordion = document.getElementById("ticket-accordion");
+    const accordionToggleBtn = document.getElementById("accordion-toggle-btn");
+
+    if (accordionToggleBtn && ticketAccordion) {
+        accordionToggleBtn.addEventListener("click", () => {
+            ticketAccordion.classList.toggle("open");
         });
     }
+    function renderResultCard(plan) {
+        if (!plan) return;
+        if (resultTitle) resultTitle.textContent = plan.title;
+        if (resultBudget) resultBudget.textContent = plan.cost;
+        if (resultTime) resultTime.textContent = plan.duration;
 
+        const randomNum = Math.floor(100 + Math.random() * 900);
+        if (ticketNumber) ticketNumber.textContent = `2026-${randomNum}`;
+
+        if (resultSteps) {
+            resultSteps.innerHTML = "";
+            plan.steps.forEach(stepText => {
+                const li = document.createElement("li");
+                li.textContent = stepText;
+                resultSteps.appendChild(li);
+            });
+        }
+
+        // 診断表示時はアコーディオンを閉じた状態に戻す
+        if (ticketAccordion) {
+            ticketAccordion.classList.remove("open");
+        }
+    }
     // ==========================================
     // 5. お気に入り機能
     // ==========================================
