@@ -213,14 +213,18 @@
                             </div>
                         </div>
 
-                        <!-- おすすめの過ごし方 -->
-                        <div class="result-detail">
-                            <h4>💡 おすすめの過ごし方</h4>
-                            <ul id="result-steps" class="detail-list">
-                                <!-- JavaScriptで動的に追加されます -->
-                            </ul>
+                        <!-- おすすめの過ごし方（アコーディオン対応） -->
+                        <div id="ticket-accordion" class="result-detail">
+                            <button type="button" id="accordion-toggle-btn" class="accordion-toggle">
+                                <span>💡 おすすめの過ごし方を見る</span>
+                                <span class="accordion-icon">＋</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul id="result-steps" class="detail-list">
+                                    <!-- JavaScriptで動的に追加されます -->
+                                </ul>
+                            </div>
                         </div>
-                    </div> <!-- ★ ticket-main-content の閉じタグ -->
 
                     <!-- 右側のバーコードスタブ -->
                     <div class="ticket-stub-right">
@@ -231,9 +235,25 @@
                     </div>
                 </div> <!-- ★ ticket-inner の閉じタグ -->
 
-                <!-- 下部のフィルム穴帯 -->
-                <div class="film-holes bottom"></div>
+                <!-- 映画チケット風カード構造（★ id="capture-ticket" を追加） -->
+            <div id="capture-ticket" class="cinema-ticket">
+                <!-- ...（チケットの中身はそのまま）... -->
             </div> <!-- ★ cinema-ticket の閉じタグ -->
+
+            <!-- ★ 追加：チケット画像保存＆SNSシェアエリア -->
+            <div class="share-box">
+                <button type="button" id="save-image-btn" class="btn btn-image">
+                    <span class="btn-icon">📸</span> チケットを画像で保存
+                </button>
+                <div class="sns-btn-row">
+                    <button type="button" id="share-line-btn" class="btn btn-line">
+                        💬 LINEで送る
+                    </button>
+                    <button type="button" id="share-x-btn" class="btn btn-x">
+                        𝕏 でシェア
+                    </button>
+                </div>
+            </div>
 
             <!-- 操作ボタンエリア -->
             <div class="button-group">
@@ -274,7 +294,9 @@
 
     </div>
 
+    <!-- チケット画像化用の外部ライブラリ（html2canvas） -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <!-- JavaScriptファイルの読み込み -->
     <script src="script.js"></script>
-</body>
+  </body>
 </html>

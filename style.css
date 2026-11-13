@@ -442,49 +442,14 @@ body {
     right: -9px;
 }
 
-/* アコーディオンボタン */
-.accordion-toggle {
-    width: 100%;
-    background: none;
-    border: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.85rem;
-    font-weight: bold;
-    color: #444;
-    cursor: pointer;
-    padding: 6px 0;
-    border-top: 1px dashed #C8BDAB;
-}
 
-.accordion-icon {
-    font-size: 1rem;
-    transition: transform 0.3s ease;
-}
-
-/* 開閉する中身 */
-.accordion-content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease-out, opacity 0.3s ease;
-    opacity: 0;
-}
-
-/* アコーディオンが開いた状態 */
-.result-detail.open .accordion-content {
-    max-height: 300px; /* 十分な高さを指定 */
-    opacity: 1;
-    margin-top: 8px;
-}
-
-.result-detail.open .accordion-icon {
-    transform: rotate(45deg); /* ＋が✕に変化 */
-}
 
 
 /* ========================================== */
 /* 6. お気に入り画面                          */
+/* ========================================== */
+/* ========================================== */
+/* 6. お気に入り画面（もぎり・スタンプ機能付き） */
 /* ========================================== */
 .favorites-grid {
     display: flex;
@@ -499,8 +464,31 @@ body {
     background: #FFF9F5;
     border: 2px dashed #E5D5C8;
     border-radius: var(--radius-small);
-    padding: 15px;
+    padding: 15px 42px 15px 15px; /* 右側の削除ボタンと重ならないように余白調整 */
     position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+/* もぎり済みのカード（少しセピア・半券風） */
+.fav-card.used {
+    background: #F3EDE6;
+    border-color: #CBBBA8;
+}
+
+.fav-card.used .fav-title,
+.fav-card.used .fav-meta {
+    opacity: 0.65;
+}
+
+/* 右端の切り取り線（もぎりライン） */
+.fav-card.used::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 36px;
+    border-left: 2px dotted #B8A694;
 }
 
 .fav-title {
@@ -513,20 +501,93 @@ body {
 .fav-meta {
     font-size: 0.8rem;
     color: var(--text-light);
+    margin-bottom: 10px;
+}
+
+/* もぎり（スタンプ）ボタン */
+.stamp-btn {
+    background: #FFFFFF;
+    color: #D9534F;
+    border: 1.5px solid #D9534F;
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.stamp-btn:hover {
+    background: #FFF0F0;
+}
+
+.fav-card.used .stamp-btn {
+    background: #E8E0D5;
+    color: #7A6E62;
+    border-color: #B8A694;
+}
+
+/* レトロな「行った！」丸印スタンプ */
+.used-stamp {
+    position: absolute;
+    right: 46px;
+    bottom: 8px;
+    width: 64px;
+    height: 64px;
+    border: 3px double rgba(217, 68, 68, 0.78);
+    border-radius: 50%;
+    color: rgba(217, 68, 68, 0.85);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    transform: rotate(-16deg);
+    pointer-events: none; /* ボタンのクリックを邪魔しない */
+    animation: stampPress 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    z-index: 1;
+}
+
+.stamp-main {
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    line-height: 1.1;
+}
+
+.stamp-sub {
+    font-size: 0.55rem;
+    border-top: 1px solid rgba(217, 68, 68, 0.6);
+    margin-top: 2px;
+    padding-top: 1px;
+}
+
+/* スタンプを押したときの「ポンッ！」というアニメーション */
+@keyframes stampPress {
+    0% {
+        opacity: 0;
+        transform: scale(2.2) rotate(-25deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(-16deg);
+    }
 }
 
 .delete-fav-btn {
     position: absolute;
     top: 10px;
-    right: 10px;
+    right: 8px;
     background: #FFD1D1;
     color: #D32F2F;
     border: none;
     border-radius: 50%;
-    width: 26px;
-    height: 26px;
-    font-size: 0.8rem;
+    width: 24px;
+    height: 24px;
+    font-size: 0.75rem;
     cursor: pointer;
+    z-index: 2;
 }
 
 .empty-message {
@@ -535,38 +596,55 @@ body {
     color: var(--text-light);
     font-size: 0.95rem;
 }
+
 /* ========================================== */
-/* 7. アニメーション演出                       */
+/* 8. チケット画像保存＆SNSシェアボタン       */
 /* ========================================== */
-
-/* アニメーション部分の修正（透過設定をマイルドに変更） */
-#result-screen.active .cinema-ticket {
-    animation: ticketPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+.share-box {
+    background-color: #FAF6F0;
+    border: 2px dashed #E5D9CE;
+    border-radius: var(--radius-small);
+    padding: 12px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-@keyframes ticketPop {
-    0% {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.btn-image {
+    background-color: #FF9E80;
+    color: #FFFFFF;
 }
 
-/* 子要素のアニメーションが原因で消えるのを防ぐため、一旦 display/opacity の過度な指定を外す */
-#result-screen.active .ticket-main-content > * {
-    animation: fadeInUp 0.4s ease-out forwards;
+.btn-image:hover {
+    background-color: #F48462;
 }
 
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.sns-btn-row {
+    display: flex;
+    gap: 10px;
+}
+
+.sns-btn-row .btn {
+    flex: 1;
+    padding: 11px 10px;
+    font-size: 0.9rem;
+}
+
+.btn-line {
+    background-color: #06C755;
+    color: #FFFFFF;
+}
+
+.btn-line:hover {
+    background-color: #05B04B;
+}
+
+.btn-x {
+    background-color: #222222;
+    color: #FFFFFF;
+}
+
+.btn-x:hover {
+    background-color: #000000;
 }
