@@ -648,3 +648,43 @@ body {
 .btn-x:hover {
     background-color: #000000;
 }
+
+/* ========================================== */
+/* 9. アコーディオン開閉スタイル               */
+/* ========================================== */
+.accordion-toggle {
+    width: 100%;
+    background: none;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: #444;
+    cursor: pointer;
+    padding: 6px 0;
+    border-top: 1px dashed #C8BDAB;
+}
+
+.accordion-icon {
+    font-size: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out, opacity 0.3s ease;
+    opacity: 0;
+}
+
+.result-detail.open .accordion-content {
+    max-height: 300px;
+    opacity: 1;
+    margin-top: 8px;
+}
+
+.result-detail.open .accordion-icon {
+    transform: rotate(45deg);
+}

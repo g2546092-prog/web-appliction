@@ -363,7 +363,17 @@ document.addEventListener("DOMContentLoaded", () => {
         renderResultCard(currentSelectedPlan);
         showScreen(resultScreen);
     }
-    // ★★★ この関数を追加してください ★★★
+    // アコーディオン開閉処理の要素取得とイベント設定
+    const ticketAccordion = document.getElementById("ticket-accordion");
+    const accordionToggleBtn = document.getElementById("accordion-toggle-btn");
+
+    if (accordionToggleBtn && ticketAccordion) {
+        accordionToggleBtn.addEventListener("click", () => {
+            ticketAccordion.classList.toggle("open");
+        });
+    }
+
+    // 診断結果カードを画面に描画する関数
     function renderResultCard(plan) {
         if (!plan) return;
         if (resultTitle) resultTitle.textContent = plan.title;
@@ -381,12 +391,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 resultSteps.appendChild(li);
             });
         }
-    }
-    
 
-    // ==========================================
-    // 5. お気に入り機能
-    // ==========================================
+        if (ticketAccordion) {
+            ticketAccordion.classList.remove("open");
+        }
+    }
+
     // ==========================================
     // 5. お気に入り機能（もぎり・スタンプ対応）
     // ==========================================
@@ -410,7 +420,6 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // 保存時に「もぎり状態(isUsed)」と「行った日(usedDate)」の初期値を追加
         const planToSave = {
             ...currentSelectedPlan,
             isUsed: false,
@@ -437,10 +446,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             favorites.forEach((plan, index) => {
                 const favCard = document.createElement("div");
-                // もぎり済みの場合は「used」クラスをつける
                 favCard.className = plan.isUsed ? "fav-card used" : "fav-card";
 
-                // もぎり済みのときだけ表示する赤い丸印スタンプHTML
                 const stampHTML = plan.isUsed
                     ? `<div class="used-stamp">
                            <span class="stamp-main">行った！</span>
@@ -448,7 +455,6 @@ document.addEventListener("DOMContentLoaded", () => {
                        </div>`
                     : "";
 
-                // ボタンの文字を状態に合わせて切り替え
                 const btnText = plan.isUsed ? "↩ 未使用に戻す" : "✂ チケットをもぎる（行った！）";
 
                 favCard.innerHTML = `
@@ -461,13 +467,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 favoritesList.appendChild(favCard);
             });
 
-            // もぎりボタンのイベント登録
             const stampButtons = document.querySelectorAll(".stamp-btn");
             stampButtons.forEach(btn => {
                 btn.addEventListener("click", toggleStampFavorite);
             });
 
-            // 削除ボタンのイベント登録
             const deleteButtons = document.querySelectorAll(".delete-fav-btn");
             deleteButtons.forEach(btn => {
                 btn.addEventListener("click", removeFavorite);
@@ -477,18 +481,15 @@ document.addEventListener("DOMContentLoaded", () => {
         showScreen(favoritesScreen);
     }
 
-    // チケットのもぎり（スタンプ押印・解除）を切り替える関数
     function toggleStampFavorite(event) {
         const index = parseInt(event.target.getAttribute("data-index"), 10);
         let favorites = getStoredFavorites();
         if (!favorites[index]) return;
 
-        // 状態を反転（未押印 ⇔ 押印済み）
         const nextUsedState = !favorites[index].isUsed;
         favorites[index].isUsed = nextUsedState;
 
         if (nextUsedState) {
-            // 今日の日付を「11/13」の形式でスタンプに印字
             const today = new Date();
             const month = today.getMonth() + 1;
             const day = today.getDate();
@@ -528,9 +529,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (retryBtn) retryBtn.addEventListener("click", () => showScreen(quizScreen));
     if (addFavoriteBtn) addFavoriteBtn.addEventListener("click", saveToFavorites);
 
-});
-
-// ==========================================
+    // ==========================================
     // 7. チケット画像保存＆SNSシェア機能
     // ==========================================
     const saveImageBtn = document.getElementById("save-image-btn");
@@ -549,13 +548,11 @@ document.addEventListener("DOMContentLoaded", () => {
             saveImageBtn.innerHTML = "⏳ チケットを発券中...";
             saveImageBtn.disabled = true;
 
-            // おすすめの過ごし方が閉じていたら一時的に開く
             const wasClosed = ticketAccordion && !ticketAccordion.classList.contains("open");
             if (wasClosed) {
                 ticketAccordion.classList.add("open");
             }
 
-            // アニメーション完了を少し待つ
             await new Promise(resolve => setTimeout(resolve, 150));
 
             try {
@@ -564,7 +561,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     backgroundColor: "#F4EBE1",
                     logging: false,
                     onclone: (clonedDoc) => {
-                        // 画像化時に表示が崩れやすい疑似要素やアニメーションをリセット
                         const clonedTicket = clonedDoc.getElementById("capture-ticket");
                         if (clonedTicket) {
                             clonedTicket.style.animation = "none";
@@ -580,22 +576,14 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 });
 
-                // ダウンロード実行（スマホ・PC両対応）
-                canvas.toBlob((blob) => {
-                    if (!blob) {
-                        alert("画像の生成に失敗しました。スクリーンショットをお試しください🙇‍♀️");
-                        return;
-                    }
-                    const url = URL.createObjectURL(blob);
-                    const link = document.createElement("a");
-                    const planTitle = currentSelectedPlan ? currentSelectedPlan.title : "odekake";
-                    link.download = `お出かけチケット_${planTitle}.png`;
-                    link.href = url;
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                    URL.revokeObjectURL(url);
-                }, "image/png");
+                const dataUrl = canvas.toDataURL("image/png");
+                const link = document.createElement("a");
+                const planTitle = currentSelectedPlan ? currentSelectedPlan.title : "odekake";
+                link.download = `お出かけチケット_${planTitle}.png`;
+                link.href = dataUrl;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
 
             } catch (error) {
                 console.error(error);
@@ -610,7 +598,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // シェア用のテキストを作成する共通関数
     function createShareText() {
         if (!currentSelectedPlan) return "今日のお出かけ診断をやってみたよ！";
         const stepsText = currentSelectedPlan.steps.map(s => `・${s}`).join("\n");
@@ -620,13 +607,19 @@ document.addEventListener("DOMContentLoaded", () => {
     if (shareLineBtn) {
         shareLineBtn.addEventListener("click", () => {
             const text = encodeURIComponent(createShareText());
-            window.open(`https://line.me/R/share?text=${text}`, "_blank", "noopener,noreferrer");
+            window.location.href = `https://line.me/R/share?text=${text}`;
         });
     }
 
     if (shareXBtn) {
         shareXBtn.addEventListener("click", () => {
             const text = encodeURIComponent(createShareText());
-            window.open(`https://twitter.com/intent/tweet?text=${text}`, "_blank", "noopener,noreferrer");
+            const xUrl = `https://x.com/intent/post?text=${text}`;
+            const win = window.open(xUrl, "_blank");
+            if (!win || win.closed || typeof win.closed === "undefined") {
+                window.location.href = xUrl;
+            }
         });
     }
+
+});
