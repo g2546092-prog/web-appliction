@@ -538,11 +538,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const shareXBtn = document.getElementById("share-x-btn");
     const captureTicket = document.getElementById("capture-ticket");
 
-    // チケットをPNG画像として保存する処理
     if (saveImageBtn && captureTicket) {
         saveImageBtn.addEventListener("click", async () => {
             if (typeof html2canvas === "undefined") {
-                alert("画像化ライブラリの読み込みに失敗しました。ネット接続を確認してください。");
+                alert("画像保存の準備ができていません。ネット接続を確認してください。");
                 return;
             }
 
@@ -550,30 +549,58 @@ document.addEventListener("DOMContentLoaded", () => {
             saveImageBtn.innerHTML = "⏳ チケットを発券中...";
             saveImageBtn.disabled = true;
 
-            // おすすめの過ごし方（アコーディオン）が閉じていたら一時的に開く
+            // おすすめの過ごし方が閉じていたら一時的に開く
             const wasClosed = ticketAccordion && !ticketAccordion.classList.contains("open");
             if (wasClosed) {
                 ticketAccordion.classList.add("open");
             }
 
+            // アニメーション完了を少し待つ
+            await new Promise(resolve => setTimeout(resolve, 150));
+
             try {
-                // チケット要素をCanvasに変換（解像度2倍でくっきりさせる）
                 const canvas = await html2canvas(captureTicket, {
                     scale: 2,
-                    backgroundColor: null,
-                    useCORS: true
+                    backgroundColor: "#F4EBE1",
+                    logging: false,
+                    onclone: (clonedDoc) => {
+                        // 画像化時に表示が崩れやすい疑似要素やアニメーションをリセット
+                        const clonedTicket = clonedDoc.getElementById("capture-ticket");
+                        if (clonedTicket) {
+                            clonedTicket.style.animation = "none";
+                            clonedTicket.style.opacity = "1";
+                            clonedTicket.style.transform = "none";
+                            clonedTicket.style.background = "#F4EBE1";
+                        }
+                        const clonedContent = clonedDoc.querySelector(".accordion-content");
+                        if (clonedContent) {
+                            clonedContent.style.maxHeight = "none";
+                            clonedContent.style.opacity = "1";
+                        }
+                    }
                 });
 
-                // PNG画像としてダウンロードを実行
-                const link = document.createElement("a");
-                const planTitle = currentSelectedPlan ? currentSelectedPlan.title : "odekake";
-                link.download = `お出かけチケット_${planTitle}.png`;
-                link.href = canvas.toDataURL("image/png");
-                link.click();
+                // ダウンロード実行（スマホ・PC両対応）
+                canvas.toBlob((blob) => {
+                    if (!blob) {
+                        alert("画像の生成に失敗しました。スクリーンショットをお試しください🙇‍♀️");
+                        return;
+                    }
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement("a");
+                    const planTitle = currentSelectedPlan ? currentSelectedPlan.title : "odekake";
+                    link.download = `お出かけチケット_${planTitle}.png`;
+                    link.href = url;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(url);
+                }, "image/png");
+
             } catch (error) {
+                console.error(error);
                 alert("画像の保存に失敗しました。スクリーンショットをお試しください🙇‍♀️");
             } finally {
-                // アコーディオンとボタンの表示を元の状態に戻す
                 if (wasClosed) {
                     ticketAccordion.classList.remove("open");
                 }
@@ -590,20 +617,16 @@ document.addEventListener("DOMContentLoaded", () => {
         return `🎟 今日のお出かけはこれに決定！\n\n【${currentSelectedPlan.title}】\n💰 予算：${currentSelectedPlan.cost}\n🚃 移動：${currentSelectedPlan.duration}\n\n💡 おすすめの過ごし方\n${stepsText}\n\n#お出かけ診断`;
     }
 
-    // LINEで送るボタン
     if (shareLineBtn) {
         shareLineBtn.addEventListener("click", () => {
             const text = encodeURIComponent(createShareText());
-            const lineUrl = `https://line.me/R/share?text=${text}`;
-            window.open(lineUrl, "_blank", "noopener,noreferrer");
+            window.open(`https://line.me/R/share?text=${text}`, "_blank", "noopener,noreferrer");
         });
     }
 
-    // X（旧Twitter）でシェアするボタン
     if (shareXBtn) {
         shareXBtn.addEventListener("click", () => {
             const text = encodeURIComponent(createShareText());
-            const xUrl = `https://twitter.com/intent/tweet?text=${text}`;
-            window.open(xUrl, "_blank", "noopener,noreferrer");
+            window.open(`https://twitter.com/intent/tweet?text=${text}`, "_blank", "noopener,noreferrer");
         });
     }

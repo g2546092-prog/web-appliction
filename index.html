@@ -177,11 +177,14 @@
        <!-- ========================================== -->
         <!-- 3. 診断結果画面（映画チケット風デザイン）     -->
         <!-- ========================================== -->
+        <!-- ========================================== -->
+        <!-- 3. 診断結果画面（映画チケット風デザイン）     -->
+        <!-- ========================================== -->
         <section id="result-screen" class="screen">
             <h2 class="section-title">🎟 あなたへのおすすめチケット</h2>
             
-            <!-- 映画チケット風カード構造 -->
-            <div class="cinema-ticket">
+            <!-- 映画チケット風カード構造（★ここまでがチケット本体） -->
+            <div id="capture-ticket" class="cinema-ticket">
                 <!-- 上部のフィルム穴帯 -->
                 <div class="film-holes top"></div>
 
@@ -225,22 +228,23 @@
                                 </ul>
                             </div>
                         </div>
+                    </div>
 
                     <!-- 右側のバーコードスタブ -->
                     <div class="ticket-stub-right">
                         <div class="barcode-wrapper">
                             <div class="barcode-lines">||||| ||| |||||| ||| ||||</div>
-                            <div class="barcode-num" id="ticket-number">0123456789111</div>
+                            <div class="barcode-num" id="ticket-number">2026-123</div>
                         </div>
                     </div>
-                </div> <!-- ★ ticket-inner の閉じタグ -->
+                </div>
 
-                <!-- 映画チケット風カード構造（★ id="capture-ticket" を追加） -->
-            <div id="capture-ticket" class="cinema-ticket">
-                <!-- ...（チケットの中身はそのまま）... -->
-            </div> <!-- ★ cinema-ticket の閉じタグ -->
+                <!-- 下部のフィルム穴帯 -->
+                <div class="film-holes bottom"></div>
+            </div>
+            <!-- ★ ここまでがチケット本体（ここまでが画像保存されます） -->
 
-            <!-- ★ 追加：チケット画像保存＆SNSシェアエリア -->
+            <!-- チケットの下①：画像保存＆SNSシェアエリア -->
             <div class="share-box">
                 <button type="button" id="save-image-btn" class="btn btn-image">
                     <span class="btn-icon">📸</span> チケットを画像で保存
@@ -255,19 +259,20 @@
                 </div>
             </div>
 
-            <!-- 操作ボタンエリア -->
+            <!-- チケットの下②：お気に入り・もう一度診断・ホームボタン -->
             <div class="button-group">
-                <button id="add-favorite-btn" class="btn btn-accent">
+                <button type="button" id="add-favorite-btn" class="btn btn-accent">
                     <span class="btn-icon">💖</span> お気に入りに追加
                 </button>
-                <button id="retry-btn" class="btn btn-primary">
+                <button type="button" id="retry-btn" class="btn btn-primary">
                     <span class="btn-icon">🔄</span> もう一度診断する
                 </button>
-                <button id="home-from-result-btn" class="btn btn-secondary">
+                <button type="button" id="home-from-result-btn" class="btn btn-secondary">
                     ホームへ戻る
                 </button>
             </div>
         </section>
+       
         
         <!-- ========================================== -->
         <!-- 4. お気に入り一覧画面                      -->
